@@ -1,0 +1,44 @@
+version: '3.8'
+
+services: 
+
+  mysql-database:
+    image: testdb:0.6
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $DB_LOCAL_PORT:3306
+    networks:
+      - backend
+
+  fastapi-api:
+    depends_on:
+      - mysql-database
+    image: fastapi:0.9
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $API_LOCAL_PORT:80
+    environment:
+      - DB_HOST=mysql-database
+      - DB_PORT=3306
+    networks:
+      - backend
+      - frontend
+
+  react-ui:
+    depends_on:
+      - fastapi-api
+    image: react:0.8
+    env_file: ./.env
+    build:
+      args:
+        - VITE_API_PORT=$API_LOCAL_PORT
+    ports:
+      - $REACT_LOCAL_PORT:80
+    networks:
+      - frontend  
+
+networks:
+  backend:
+  frontend:
