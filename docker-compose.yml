@@ -3,7 +3,8 @@ version: '3.8'
 services: 
 
   mysql-database:
-    image: testdb:0.6
+    image: compose_testdb
+    build: ./MySQLDocker
     restart: unless-stopped
     env_file: ./.env
     ports:
@@ -14,7 +15,8 @@ services:
   fastapi-api:
     depends_on:
       - mysql-database
-    image: fastapi:0.9
+    image: compose_fastapi
+    build: ./FastAPIDocker
     restart: unless-stopped
     env_file: ./.env
     ports:
@@ -29,9 +31,10 @@ services:
   react-ui:
     depends_on:
       - fastapi-api
-    image: react:0.8
+    image: compose_react
     env_file: ./.env
     build:
+      context: ./ReactDocker
       args:
         - VITE_API_PORT=$API_LOCAL_PORT
     ports:
