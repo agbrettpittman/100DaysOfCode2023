@@ -4,10 +4,34 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import schemas, connection
 from .database.models import Movies, Music, Books
 from sqlalchemy.orm import Session
+import os, re
 
 app = FastAPI()
 
-origins = ["*"]
+origins = []
+
+if (os.getenv('ALLOWED_ORIGINS') == "*"):
+    origins = ["*"]
+else:
+    ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS').split(",")
+    for origin in ALLOWED_ORIGINS:
+        hostPortCombinations = []
+        protocolOptions = []
+        protocol, host, port = re.search("^(.*//)?([^:]*)(:\d*)?$", origin).groups()
+        if (port == None or port == ":80"):
+            hostPortCombinations.append(f"{host}:80")
+            hostPortCombinations.append(f"{host}")
+        else:
+            hostPortCombinations.append(f"{host}{port}")
+            
+        for combo in hostPortCombinations:
+            if (protocol != None):
+                origins.append(f"{protocol}{combo}")
+            else:	
+                origins.append(f"http://{combo}")
+                origins.append(f"https://{combo}")
+
+print(origins)
 
 app.add_middleware(
     CORSMiddleware,
