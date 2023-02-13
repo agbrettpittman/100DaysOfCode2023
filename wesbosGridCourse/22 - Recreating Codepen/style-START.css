@@ -1,0 +1,155 @@
+html {
+  box-sizing: border-box;
+  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma,
+    Sans-Serif;
+  font-weight: normal;
+  color: #272727;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  margin: 0;
+  font-size: 1.5em;
+}
+
+/*================================================================= My Code ==============================================================*/
+
+body {
+    background-color: #111111;
+    color: white;
+}
+
+.codepen {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr 1fr auto;
+}
+
+.button {
+    color: white;
+    background-color: #3c3c3c;
+    padding: 4px 5px;
+    border: 0px;
+    border-radius: 5px;
+}
+
+/* ====== header ===== */
+
+header.pen {
+    align-items: center;
+    padding: 0px 10px;
+    display: flex;
+    gap: 10px;
+    border-bottom: 5px solid #383838;
+}
+
+.pen__details {
+    flex: 1;
+}
+
+header.pen .button {
+    padding: 10px 8px;
+    font-size: 15px;
+}
+
+header.pen button.button.button--dirty {
+    position: relative;
+}
+
+header.pen button.button.button--dirty::before {
+    display: block;
+    position: absolute;
+    background-color: gold;
+    height: 2px;
+    width: calc(100% - 6px);
+    content: '';
+    left: 3px;
+    top: 3px;
+}
+/* ====== code ======= */
+
+section.code {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: #1b2b34;
+}
+
+.editor {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+header.editor__header {
+    display: grid;
+    background-color: #18272f;
+    grid-template-columns: auto 1fr auto;
+    padding: 8px 5px;
+    align-items: center;
+    gap: 10px;
+}
+
+.editor__code {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+.editor__gutter {
+    display: grid;
+    grid-auto-rows: min-content;
+}
+
+textarea.editor__input {
+    background-color: transparent;
+    border: 0px;
+    color: gray;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 0px;
+    resize: none;
+}
+
+/* ====== footer ===== */
+
+footer.settings {
+    display: grid;
+    grid-template-columns: auto auto auto 1fr;
+    align-items: stretch;
+    align-content: center;
+    gap: 10px;
+    padding: 10px;
+    border-top: 1px solid gray;
+}
+
+footer .button {
+    color: white;
+    background-color: #2d2d2d;
+    padding: 4px 5px;
+    border: 0px;
+    border-radius: 5px;
+}
+
