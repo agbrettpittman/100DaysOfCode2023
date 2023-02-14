@@ -4,4 +4,5 @@ This is the project containing my (Brett Pittman) work for the 2023 100 Days of 
 - CSS Grid
 - Docker
 - Svelte
-some days I needed a bit of a break, so I worked on the css challenges found in the css-challenges directory. 
+
+Some days I needed a bit of a break, so I worked on the css challenges found in the css-challenges directory. 
