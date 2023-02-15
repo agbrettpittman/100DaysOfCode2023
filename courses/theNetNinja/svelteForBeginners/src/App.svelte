@@ -1,16 +1,20 @@
 <script>
-	let name = "World";
+	let firstName = "John";
+	let lastName = "Doe";
     let beltColor = "white"
 
-    function handleClick(){
-        beltColor = 'black'
+    $: fullName = `${firstName} ${lastName}`
+    $: {
+        console.log(fullName)
+        console.log(beltColor)
     }
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>You are a {beltColor} belt</p>
-    <button on:click={handleClick}>Update Belt Color</button>
+	<p style="background-color: {beltColor};">{fullName} is a {beltColor} belt</p>
+    <input type="text" bind:value={firstName} />
+    <input type="text" bind:value={lastName} />
+    <input type="text" bind:value={beltColor} />
 </main>
 
 <style>
