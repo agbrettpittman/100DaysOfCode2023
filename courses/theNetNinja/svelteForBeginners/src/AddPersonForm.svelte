@@ -1,11 +1,20 @@
 <script>
+    import { createEventDispatcher } from "svelte";
+    import SubComponent from "./SubComponent.svelte";
+
+    let dispatch = createEventDispatcher()
+
     let name
     let beltColor
     let age
     let skills = []
 
     function handleSubmit(){
-        console.log({name, beltColor, age, skills})
+        const person = {
+            name, beltColor, age, skills, 
+            id: Math.random()
+        }
+        dispatch("addPerson", person)
     }
 </script>
 
@@ -26,6 +35,7 @@
         </select>
     </label>
     <button>Add Person</button>
+    <SubComponent />
 </form>
 
 <style>

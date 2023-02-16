@@ -8,12 +8,16 @@
         {name: 'Luigi', beltColor: 'blue', age: 45, id: 3},
     ]
 
-    function handleClick(id){
+    function handleDelete(id){
         people = people.filter((x) => x.id != id)
     }
 
     function toggleModal(){
         showModal = !showModal
+    }
+
+    function addPerson(e){
+        people = [...people, e.detail]
     }
 
 </script>
@@ -22,7 +26,7 @@
     <div slot="title">
         <h3>Add a New Person</h3>
     </div>
-    <AddPersonForm />
+    <AddPersonForm on:addPerson={addPerson} on:subDispatch={(e) => console.log(e)}/>
 </Modal>
 
 <main>
@@ -30,7 +34,7 @@
         <div class="person">
             <h4>{person.name}</h4>
             <p>{person.age} years old, {person.beltColor} belt.</p>
-            <button on:click={() => handleClick(person.id)}>Delete {person.name}</button>
+            <button on:click={() => handleDelete(person.id)}>Delete {person.name}</button>
             {#if person.beltColor === 'black'}
                 <p><strong>MASTER NINJA</strong></p>
             {/if}
