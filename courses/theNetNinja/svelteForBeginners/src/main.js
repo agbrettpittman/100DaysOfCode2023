@@ -1,7 +1,6 @@
 import App from './App.svelte';
-import LoopsApp from './LoopsApp.svelte'
 
-const app = new LoopsApp({
+const app = new App({
 	target: document.body,
 	props: {
 		name: 'Brett'
