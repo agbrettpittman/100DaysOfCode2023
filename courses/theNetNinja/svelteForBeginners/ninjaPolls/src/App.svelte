@@ -1,8 +1,6 @@
 <script>
     import Footer from "./components/footer.svelte";
-import Header from "./components/header.svelte";
-
-	export let name;
+    import Header from "./components/header.svelte";
 </script>
 
 <Header />
