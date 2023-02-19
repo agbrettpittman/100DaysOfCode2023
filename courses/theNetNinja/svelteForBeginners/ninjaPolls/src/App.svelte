@@ -13,23 +13,23 @@ import Footer from "./components/footer.svelte";
         activeItem = e.detail
     }
 
-    //polls
-
-    let polls = [
-        {
-            id: 1,
-            question: 'Python or Javascript?',
-            answerA: 'Python',
-            answerB: 'Javascript',
-            votesA: 9,
-            votesB: 15
-        }
-    ]
-
     function handleAdd(e){
         polls = [e.detail, ...polls]
         activeItem = 'Current Polls'
         console.log(polls);
+    }
+
+    function handleVote(e){
+        const { id, option } = e.detail
+        let copiedPolls = [...polls]
+        let upvotedPoll = copiedPolls.find((poll) => poll.id == id)
+        if (option === 'a') {
+            upvotedPoll.votesA++
+        } else if (option === 'b') {
+            upvotedPoll.votesB++
+        } 
+
+        polls = copiedPolls;
     }
 
 </script>
@@ -38,7 +38,7 @@ import Footer from "./components/footer.svelte";
 <main>
     <Tabs {items} {activeItem} on:tabChange={tabChange}/>
 	{#if activeItem === 'Current Polls'}
-        <PollList {polls} />
+        <PollList on:vote={handleVote} />
     {/if}
 	{#if activeItem === 'Add New Poll'}
         <CreatePollForm on:add={handleAdd}/>
