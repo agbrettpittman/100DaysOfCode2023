@@ -1,6 +1,7 @@
 <script>
     import { createEventDispatcher } from 'svelte';
     import Button from '../shared/Button.svelte';
+    import PollStore from '../stores/PollStore';
 
     let valid = false
     let fields = {
@@ -41,7 +42,8 @@
 
         if (valid) {
             let poll = {...fields, votesA: 0, votesB: 0, id: Math.random()}
-            dispatch('add', poll)
+            PollStore.update(currentPolls => [poll, ...currentPolls])
+            dispatch('add')
 
         }
 

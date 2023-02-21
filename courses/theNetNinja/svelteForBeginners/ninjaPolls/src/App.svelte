@@ -1,6 +1,6 @@
 <script>
     import CreatePollForm from "./components/CreatePollForm.svelte";
-import Footer from "./components/footer.svelte";
+    import Footer from "./components/footer.svelte";
     import Header from "./components/header.svelte";
     import PollList from "./components/PollList.svelte";
     import Tabs from "./shared/Tabs.svelte";
@@ -13,23 +13,8 @@ import Footer from "./components/footer.svelte";
         activeItem = e.detail
     }
 
-    function handleAdd(e){
-        polls = [e.detail, ...polls]
+    function handleAdd(){
         activeItem = 'Current Polls'
-        console.log(polls);
-    }
-
-    function handleVote(e){
-        const { id, option } = e.detail
-        let copiedPolls = [...polls]
-        let upvotedPoll = copiedPolls.find((poll) => poll.id == id)
-        if (option === 'a') {
-            upvotedPoll.votesA++
-        } else if (option === 'b') {
-            upvotedPoll.votesB++
-        } 
-
-        polls = copiedPolls;
     }
 
 </script>
@@ -38,7 +23,7 @@ import Footer from "./components/footer.svelte";
 <main>
     <Tabs {items} {activeItem} on:tabChange={tabChange}/>
 	{#if activeItem === 'Current Polls'}
-        <PollList on:vote={handleVote} />
+        <PollList />
     {/if}
 	{#if activeItem === 'Add New Poll'}
         <CreatePollForm on:add={handleAdd}/>
