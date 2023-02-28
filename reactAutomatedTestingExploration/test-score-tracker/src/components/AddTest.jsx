@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 import MyButton from './library/MyButton'
 
 const Wrapper = styled.div`
@@ -19,10 +20,16 @@ const NumberInput = styled.input`
 `
 
 
-function AddTest() {
+function AddTest({onAdd = ()=>{}}) {
     const [TestName, setTestName] = useState("")
     const [Score, setScore] = useState(0)
     const [Weight, setWeight] = useState(100)
+
+    function handleSubmit(){
+        axios.post(`https://crudcrud.com/api/${process.env.REACT_APP_API_ENDPOINT}/tests`, {TestName,Score,Weight})
+        .then(x => onAdd())
+        .catch(x => console.error(x))
+    }
 
     return (
         <Wrapper>
@@ -39,7 +46,7 @@ function AddTest() {
                 <NumberInput type="number" placeholder='weight' value={Weight} onChange={(e)=>setWeight(e.target.value)}/>
                 <span>%</span>
             </label>
-            <MyButton text='Add Test' />
+            <MyButton text='Add Test' onClick={handleSubmit}/>
         </Wrapper>
     )
 }
