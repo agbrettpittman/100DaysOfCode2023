@@ -27,8 +27,12 @@ function AddTest({onAdd = ()=>{}}) {
 
     function handleSubmit(){
         axios.post(`https://crudcrud.com/api/${process.env.REACT_APP_API_ENDPOINT}/tests`, {TestName,Score,Weight})
-        .then(x => onAdd())
+        .then(x => {
+            console.log(x)
+            onAdd()
+        })
         .catch(x => console.error(x))
+        .finally(console.log("post sent"))
     }
 
     return (
@@ -46,7 +50,7 @@ function AddTest({onAdd = ()=>{}}) {
                 <NumberInput type="number" placeholder='weight' value={Weight} onChange={(e)=>setWeight(e.target.value)}/>
                 <span>%</span>
             </label>
-            <MyButton text='Add Test' onClick={handleSubmit}/>
+            <MyButton id="addTestButton" text='Add Test' onClick={handleSubmit}/>
         </Wrapper>
     )
 }

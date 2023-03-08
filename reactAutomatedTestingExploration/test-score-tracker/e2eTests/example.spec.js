@@ -16,6 +16,7 @@ test('homepage has Playwright in title and get started link linking to the intro
   })
 
 test('Can create score', async ({ page }) => {
+    page.on('console', msg => console.log(msg))
     await page.goto('http://localhost:3000/');
     await expect(page.getByRole('button', { name: 'Add Test' })).toHaveCount(1)
     //const theRequest = await page.waitForRequest(/crudcrud.com/)
