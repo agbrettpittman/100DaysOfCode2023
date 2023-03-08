@@ -1,4 +1,8 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
+import { TestsContext } from '../App'
+import MyButton from './library/MyButton'
+import axios from 'axios'
 
 const StyledTable = styled.table`
     width: 100%;
@@ -14,20 +18,29 @@ const HeaderRow = styled.tr`
     color: white;
 `
 
-function TestList({testData = []}) {  
+function TestList() {
+    
+    const {Tests, getTests} = useContext(TestsContext)
 
-    console.log(testData)
+    function deleteTest(testId){
+        axios.delete(`https://crudcrud.com/api/${process.env.REACT_APP_API_ENDPOINT}/tests/${testId}`)
+        .then(x => {
+            getTests()
+        })
+        .catch(x => console.error(x))
+    }
 
     return (
         <StyledTable>
             <HeaderRow>
-                <th>Test Name</th><th>Score</th><th>Weight</th>
+                <th>Test Name</th><th>Score</th><th>Weight</th><th></th>
             </HeaderRow>
-            {testData.map((test)=> (
+            {Tests.map((test)=> (
                 <tr>
                     <td>{test.TestName}</td>
                     <td>{test.Score}</td>
                     <td>{test.Weight}%</td>
+                    <td><MyButton text="Delete" variant='red' onClick={()=>deleteTest(test._id)}/></td>
                 </tr>
             ))}
         </StyledTable>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import styled from 'styled-components'
 import AddTest from './components/AddTest';
 import TestList from './components/TestList';
@@ -12,28 +12,35 @@ const AppWrapper = styled.div`
     gap: 50px;
 `
 
+export const TestsContext = createContext({
+    Tests: [],
+    getTests: ()=>{}
+})
+
 function App() {
 
-    const [Data, setData] = useState([])
+    const [Tests, setTests] = useState([])
 
     useEffect(getData, [])
 
     function getData(){
         axios.get(`https://crudcrud.com/api/${process.env.REACT_APP_API_ENDPOINT}/tests`)
-        .then(x => setData(x.data))
+        .then(x => setTests(x.data))
         .catch(x => console.error(x))
     }
     
 
     return (
-        <AppWrapper>
-        <div>
-            <h1>My Test Scores</h1>
-            <p>By Brett Pittman</p>
-        </div>
-        <TestList testData={Data}/>
-        <AddTest onAdd={getData}/>
-        </AppWrapper>
+        <TestsContext.Provider value={{Tests, getTests: getData}}>
+            <AppWrapper>
+                <div>
+                    <h1>My Test Scores</h1>
+                    <p>By Brett Pittman</p>
+                </div>
+                <TestList/>
+                <AddTest onAdd={getData}/>
+            </AppWrapper>
+        </TestsContext.Provider>
     );
 }
 
