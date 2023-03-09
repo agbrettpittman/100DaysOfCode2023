@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from 'react';
 import styled from 'styled-components'
 import AddTest from './components/AddTest';
 import TestList from './components/TestList';
+import TestStats from './components/TestStats';
 
 const AppWrapper = styled.div`
     width: 80vw;
@@ -39,6 +40,7 @@ function App() {
                 </div>
                 <TestList/>
                 <AddTest onAdd={getData}/>
+                <TestStats />
             </AppWrapper>
         </TestsContext.Provider>
     );
